@@ -722,7 +722,7 @@ open class LineChartRenderer: LineRadarRenderer
                     
                     if drawCircleHole
                     {
-                        context.setFillColor(dataSet.circleHoleColor!.cgColor)
+                        context.setFillColor(dataSet.getCircleHoleColor(atIndex: j)!.cgColor)
                      
                         // The hole rect
                         rect.origin.x = pt.x - circleHoleRadius
@@ -794,6 +794,20 @@ open class LineChartRenderer: LineRadarRenderer
             
             // draw the lines
             drawHighlightLines(context: context, point: pt, set: set)
+            
+            // draw the circle
+            var rect = CGRect()
+            let circleRadius = set.circleRadius * 1.75
+            let circleDiameter = circleRadius * 2.0
+            
+            context.setFillColor(set.getCircleColor(atIndex: indices.firstIndex(of: high)!)!.cgColor)
+            rect.origin.x = pt.x - circleRadius
+            rect.origin.y = pt.y - circleRadius
+            rect.size.width = circleDiameter
+            rect.size.height = circleDiameter
+            
+            // Begin path for circle with hole
+            context.strokeEllipse(in: rect)
         }
         
         context.restoreGState()

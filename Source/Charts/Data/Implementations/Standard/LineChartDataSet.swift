@@ -76,7 +76,7 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     
     open var circleColors = [NSUIColor]()
     
-    /// - Returns: The color at the given index of the DataSet's circle-color array.
+    /// - returns: The color at the given index of the DataSet's circle-color array.
     /// Performs a IndexOutOfBounds check by modulus.
     open func getCircleColor(atIndex index: Int) -> NSUIColor?
     {
@@ -87,6 +87,22 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
             return nil
         }
         return circleColors[index]
+    }
+    
+    open var circleHoleColors = [NSUIColor]()
+    
+    /// - returns: The color at the given index of the DataSet's circle-hole-color array.
+    /// Performs a IndexOutOfBounds check by modulus.
+    open func getCircleHoleColor(atIndex index: Int) -> NSUIColor? {
+        let size = circleHoleColors.count
+        guard size > 0 else {
+            return circleHoleColor // return the default if the array has no values
+        }
+        let index = index % size
+        guard index < size else {
+            return circleHoleColor // return the default if index out of bounds
+        }
+        return circleHoleColors[index]
     }
     
     /// Sets the one and ONLY color that should be used for this DataSet.
@@ -112,7 +128,7 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     /// If true, drawing circles is enabled
     open var drawCirclesEnabled = true
     
-    /// `true` if drawing circles for this DataSet is enabled, `false` ifnot
+    /// - returns: `true` if drawing circles for this DataSet is enabled, `false` ifnot
     open var isDrawCirclesEnabled: Bool { return drawCirclesEnabled }
     
     /// The color of the inner circle (the circle-hole).
@@ -121,7 +137,7 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     /// `true` if drawing circles for this DataSet is enabled, `false` ifnot
     open var drawCircleHoleEnabled = true
     
-    /// `true` if drawing the circle-holes is enabled, `false` ifnot.
+    /// - returns: `true` if drawing the circle-holes is enabled, `false` ifnot.
     open var isDrawCircleHoleEnabled: Bool { return drawCircleHoleEnabled }
     
     /// This is how much (in pixels) into the dash pattern are we starting from.
